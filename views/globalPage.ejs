@@ -1,0 +1,67 @@
+<html>
+<body>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+
+<form action="/myBlogs" method="POST">
+<input type="submit" value="my Blogs">
+<input type="hidden" value= <%= phone %> name="phone">
+</form>
+
+
+<script>
+    $(document).ready(function(){
+        
+        $("#newPost").click(function(){
+              var hidden = $(".hidden");
+              console.log("this is length"+hidden.length)
+              for(var i =0;i < hidden.length ; i++){
+                  console.log("entering loop"+i);
+                  hidden[i].style.display = "block";
+                  }
+    });
+});
+</script>
+<li>
+        <h3>my blogs</h3>
+        <div style="position: absolute;left: 200;top:50;height: 200;width: 500;">
+<% for(var i=0;i< blogHeading.length;i++){ %>
+    <div style="position: relative;" class="blue">
+    <ul> <%= blogId[i] %>
+        <form action="/openBlog" method="POST">
+        <%= blogHeading[i] %> <br>
+        <input type="hidden" value=<%=phone%> name="phone" id=<%=phone%>>
+        <input type="hidden" value=<%= blogId[i] %> name="blogId" id=<%= blogId %> >
+        <input type="submit" value="open Blog">
+        </form>
+    </div>
+    </ul>
+    <% } %>
+        </div>
+</li>
+<style>
+     .hidden{
+      display:none;
+          }
+    .content {
+      overflow: auto;
+      border: 3px solid #666;
+    }
+    .content div {
+      padding: 10px;
+    }
+    .content a {
+      color: darkblue;
+    }
+    .blue {
+      background-color: #1faadb;
+    }
+    .green {
+      float: left;
+      width: 35%;
+      background-color: #8ebf42;
+    }
+  </style>
+
+</body>
+</html>

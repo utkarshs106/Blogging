@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    </head>
+    <body> 
+
+        <input type="Submit" value="Delete Blog" id = "deleteBlog">
+        <input type="hidden" value= <%= phone %> id="phone">
+        <input type="hidden" value= <%=blogId%>  id="blogId">
+        
+        <h2>This is blog Heading</h2><br>
+        <%= blogHeading %>
+        <br><br><br>
+        <h2>this is the body of blog</h2><br>
+        <%= blogContent %>
+
+        <h3>Comments</h3>
+        
+        <script>
+            $("#deleteBlog").click(function(){
+        $.ajax({
+        type:"POST",
+        url:"/deleteBlog",
+        data:{phone:$("#phone").val(),blogId:$("#blogId").val()}
+    });
+    });
+        </script>
+    </body>
+</html>

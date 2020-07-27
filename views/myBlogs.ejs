@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <input type="button"value="New Post"id="newPost">
+        <div id="tNewPost">
+            <textarea  id="blogHeading" cols="70" rows="3" style="resize:none" class="hidden" required></textarea>
+            <br>
+            <textarea id="blogContent" rows="20" cols="100" style="resize:none" class="hidden" required></textarea>
+            <br>
+            </div>
+
+        <input type="button" id="submit" value="Post">
+        <input type="hidden" name="phone" id="phone" value= <%= phone %> >
+                
+
+        <li>
+        <% for(var i=0; i<blogId.length; i++){ %>
+            <div style="border: 1px solid black;">
+            <ol> <%= blogId[i] %> 
+                 <%= blogHeading[i] %>  <br>
+                 <%= blogContent[i] %>  <br>
+                 <form action="/openBlog" method="POST">
+                     <input type="hidden" name="blogId" value=<%= blogId[i] %> >
+                     <input type="hidden" name="blogHeading" value = <%= blogHeading %> >
+                     <input type="hidden" name="blogContent" value= <%= blogContent %>>
+                     <input type="hidden" name="phone" value= <%= phone %>>
+                     <input type="submit" value="Open Blog">
+                 </form>
+            </ol>
+        </div>
+            <% } %>
+        </li>
+        <script>
+             $(document).ready(function(){
+        $("#submit").click(function(){
+            $.ajax({
+                  type:"POST",
+                  url:"/blogToDb",
+                  data:{Head:$("#blogHeading").val(),Body:$("#blogContent").val(),number:$("#phone").val()},
+                  success:function(data){                      
+                },
+                error: function(jqXHR, textStatus, err) {
+              alert('text status1'+textStatus+', err '+err)
+              }
+              })
+              $("#blogHeading").val(" ");
+              $("#blogContent").val(" ");
+            });
+
+            $("#newPost").click(function(){
+              var hidden = $(".hidden");
+              console.log("this is length"+hidden.length)
+              for(var i =0;i < hidden.length ; i++){
+                  console.log("entering loop"+i);
+                  hidden[i].style.display = "block";
+                  }
+                })
+            });
+            ;
+        </script>
+        <style>
+            .hidden{
+      display:none;
+          }
+        </style>
+    </body>
+</html>
